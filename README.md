@@ -1,5 +1,7 @@
 # git-changes-monitoring
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7e18a85fb77f4e0782ced160ffeb25fb)](https://app.codacy.com/manual/egorklimov/git-changes-monitoring?utm_source=github.com&utm_medium=referral&utm_content=egorklimov/git-changes-monitoring&utm_campaign=Badge_Grade_Dashboard)
+![Java CI with Maven](https://github.com/egorklimov/git-changes-monitoring/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/840e7ae021364f5cbfac89634f30ab32)](https://www.codacy.com/manual/egorklimov/git-changes-monitoring?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=egorklimov/git-changes-monitoring&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/840e7ae021364f5cbfac89634f30ab32)](https://www.codacy.com/manual/egorklimov/git-changes-monitoring?utm_source=github.com&utm_medium=referral&utm_content=egorklimov/git-changes-monitoring&utm_campaign=Badge_Coverage)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fegorklimov%2Fgit-changes-monitoring.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fegorklimov%2Fgit-changes-monitoring?ref=badge_shield)
 
  Service for visualizing git changes
