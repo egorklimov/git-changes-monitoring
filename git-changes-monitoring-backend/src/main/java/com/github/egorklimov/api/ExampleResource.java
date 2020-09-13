@@ -1,4 +1,4 @@
-package com.github.egorklimov;
+package com.github.egorklimov.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
