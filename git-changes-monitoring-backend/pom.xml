@@ -106,8 +106,36 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.intuit.karate</groupId>
+      <artifactId>karate-apache</artifactId>
+      <version>0.9.6</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.intuit.karate</groupId>
+      <artifactId>karate-junit5</artifactId>
+      <version>0.9.6</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
   <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/java</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <groupId>io.quarkus</groupId>
