@@ -8,5 +8,5 @@ export default function Route() {
         <BrowserRouter>
             <Root />
         </BrowserRouter>
-    )
+    );
 }

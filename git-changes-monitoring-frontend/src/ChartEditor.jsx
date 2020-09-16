@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import plotly from 'plotly.js/dist/plotly';
-import PlotlyEditor from 'react-chart-editor';
-import 'react-chart-editor/lib/react-chart-editor.css';
+import React, {useEffect, useState} from "react";
+import plotly from "plotly.js/dist/plotly";
+import PlotlyEditor from "react-chart-editor";
+import "react-chart-editor/lib/react-chart-editor.css";
 
 export default function ChartEditor() {
     const config = {editable: true};
@@ -17,7 +17,7 @@ export default function ChartEditor() {
         authorDateDetails: [],
     });
 
-    const dataSourceOptions = Object.keys(dataSources).map(name => ({
+    const dataSourceOptions = Object.keys(dataSources).map((name) => ({
         value: name,
         label: name,
     }));
@@ -29,15 +29,15 @@ export default function ChartEditor() {
     useEffect(() => {
         const interval = setInterval(() => {
             fetch(
-                '/commit/snakecharm/master', {
-                    method: 'GET',
+                "/commit/snakecharm/master", {
+                    method: "GET",
                     headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
+                        "Content-Type": "application/json;charset=utf-8",
                     },
-                }).then(response => {
+                }).then((response) => {
                 return response.json();
             }).then((result) => {
-                    console.log('RESULT', result);
+                    console.log("RESULT", result);
                     const data = {
                         hash: [],
                         commitDate: [],
@@ -48,7 +48,7 @@ export default function ChartEditor() {
                         commitDateDetails: [],
                         authorDateDetails: [],
                     }
-                    result.forEach(record => {
+                    result.forEach((record) => {
                         console.log(record);
                         data.hash.push(record.hash);
                         data.commitDate.push(Date.parse(record.commitDate, "yyyy-MM-dd HH:mm:ss"));
@@ -59,7 +59,7 @@ export default function ChartEditor() {
                         data.commitDateDetails.push(record.commitDateDetails);
                         data.authorDateDetails.push(record.authorDateDetails);
                     })
-                    console.log('DATA', data);
+                    console.log("DATA", data);
                     setIsLoaded(true);
                     setDataSources(data);
                 },
