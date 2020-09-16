@@ -1,0 +1,21 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install deps
+        working-directory: git-changes-monitoring-frontend
+        run: npm install
+      - name: Try start
+        working-directory: git-changes-monitoring-frontend
+        run: npm start
+        env:
+          CI: true
