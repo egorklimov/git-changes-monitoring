@@ -34,7 +34,7 @@ public class BranchRepositoryTestSuite implements CommonCRUDTestSuite<Branch> {
     @Override
     public String updateQuery() {
         return "name = 'develop' where name = 'master' " +
-                "and repository IN (select id from GitRepository where name = 'test_branch')";
+                "and repository_id IN (select id from GitRepository where name = 'test_branch')";
     }
 
     @Override

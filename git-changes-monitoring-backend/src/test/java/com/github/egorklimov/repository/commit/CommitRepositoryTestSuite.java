@@ -36,7 +36,7 @@ public class CommitRepositoryTestSuite implements CommonCRUDTestSuite<CommitDTO>
 
         Branch branch = new Branch();
         branch.setRepositoryId(gitRepository.getId());
-        branch.setName("test_comm0it");
+        branch.setName("test_commit");
         transaction.execute(() -> branchRepository.persistAndFlush(branch));
 
         Contributor contributor = new Contributor();
@@ -59,7 +59,7 @@ public class CommitRepositoryTestSuite implements CommonCRUDTestSuite<CommitDTO>
     public String updateQuery() {
         return "message = 'test: check commit update operation' " +
                 "where author in (select mail from Contributor where name = 'egorklimov')" +
-                "and branch in (" +
+                "and branch_id in (" +
                 "   select id from Branch where repository_id in " +
                 "       (select id from GitRepository " +
                 "        where name = 'test_commit')" +
