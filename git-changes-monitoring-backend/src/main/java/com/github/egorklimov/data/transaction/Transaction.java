@@ -1,5 +1,7 @@
 package com.github.egorklimov.data.transaction;
 
+import lombok.SneakyThrows;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
 import javax.transaction.Transactional;
@@ -10,15 +12,17 @@ import javax.transaction.Transactional;
 @ApplicationScoped
 public class Transaction {
 
+    @SneakyThrows
     @Transactional
     @ActivateRequestContext
-    public void execute(TransactionBlock transactionBlock) throws Exception {
+    public void execute(TransactionBlock transactionBlock) {
         transactionBlock.apply();
     }
 
+    @SneakyThrows
     @Transactional
     @ActivateRequestContext
-    public <T> T execute(CallableTransactionBlock<T> transactionBlock) throws Exception {
+    public <T> T execute(CallableTransactionBlock<T> transactionBlock) {
         return transactionBlock.apply();
     }
 }

@@ -1,10 +1,12 @@
 Feature: Add Github Repository
 
   Background:
-    * def resourceUrl = apiBaseUrl + '/hello'
+    * def resourceUrl = apiBaseUrl + 'api/repository'
 
-  Scenario: Call hello should return 200 status
-    Given url resourceUrl
-    When method GET
+  Scenario: Call clone should add repository
+    Given url resourceUrl + '/clone'
+    And request { url: "https://github.com/egorklimov/git-changes-monitoring.git" }
+    And header Accept = 'application/json'
+    When method POST
     Then status 200
-    And match response == "hello"
+    And match response == { path: "cloned-repos/git-changes-monitoring/.git" }

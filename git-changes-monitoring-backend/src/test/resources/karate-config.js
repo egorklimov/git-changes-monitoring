@@ -9,6 +9,6 @@ function init() {
         apiBaseUrl: 'http://localhost:8081/'
     };
     karate.configure('connectTimeout', 5000);
-    karate.configure('readTimeout', 5000);
+    karate.configure('readTimeout', 10000);
     return config;
 }

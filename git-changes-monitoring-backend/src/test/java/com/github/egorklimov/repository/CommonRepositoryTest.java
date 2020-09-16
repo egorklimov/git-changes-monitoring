@@ -58,12 +58,12 @@ class CommonRepositoryTest {
 
     @Test
     void checkBranchRepositoryCRUDOperations() {
-        new BranchRepositoryTestSuite().run(branchRepository, transaction);
+        new BranchRepositoryTestSuite(transaction, gitRepositoryRepository).run(branchRepository, transaction);
     }
 
     @Test
     void checkCommitRepositoryCRUDOperations() {
-        new CommitRepositoryTestSuite().run(commitRepository, transaction);
+        new CommitRepositoryTestSuite(transaction, gitRepositoryRepository, branchRepository, contributorRepository).run(commitRepository, transaction);
     }
 
     @Test

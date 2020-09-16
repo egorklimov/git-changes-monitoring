@@ -19,7 +19,7 @@ jobs:
         run: mvn clean install
       - name: Start Karate feature-based tests
         working-directory: git-changes-monitoring-backend
-        run: mvn clean test -DargLine="-Dkarate.env=local" -Dtest=FeatureRunner
+        run: mvn test -DargLine="-Dkarate.env=local" -Dtest=FeatureRunner
       - name: Move JaCoCo report to workspace
         run: mv ./git-changes-monitoring-backend/target/site/jacoco-it/jacoco.xml $GITHUB_WORKSPACE/jacoco.xml
       - name: Run codacy-coverage-reporter

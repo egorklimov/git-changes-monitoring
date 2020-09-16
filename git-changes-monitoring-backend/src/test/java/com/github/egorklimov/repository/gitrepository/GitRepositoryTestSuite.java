@@ -14,6 +14,7 @@ public class GitRepositoryTestSuite implements CommonCRUDTestSuite<GitRepository
         GitRepository repository = new GitRepository();
         repository.setPath("path");
         repository.setName("name");
+        repository.setIsSyncing(true);
         return repository;
     }
 

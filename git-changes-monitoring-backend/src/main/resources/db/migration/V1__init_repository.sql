@@ -9,9 +9,10 @@ create table tag
 
 create table repository
 (
-    id      BIGSERIAL    PRIMARY KEY,
-    path    VARCHAR(500) UNIQUE NOT NULL,
-    name    VARCHAR(500) NOT NULL
+    id          BIGSERIAL    PRIMARY KEY,
+    path        VARCHAR(500) UNIQUE NOT NULL,
+    name        VARCHAR(500) NOT NULL,
+    is_syncing  BOOLEAN      NOT NULL
 );
 
 create table repository_has_tag
@@ -25,6 +26,7 @@ create table branch
     id              BIGSERIAL      PRIMARY KEY,
     repository_id   BIGINT         REFERENCES repository(id)    ON DELETE CASCADE   NOT NULL,
     name            VARCHAR(250)   NOT NULL,
+    is_scanned      BOOLEAN        NOT NULL,
     UNIQUE(name, repository_id)
 );
 
@@ -37,16 +39,13 @@ create table contributor
 
 create table commit
 (
-    hash            VARCHAR(40)  PRIMARY KEY,
-    author          VARCHAR(500) REFERENCES contributor(mail) NOT NULL,
-    repository      BIGINT       REFERENCES repository(id) ON DELETE CASCADE NOT NULL,
-    commit_date     TIMESTAMP    NOT NULL,
-    message         TEXT         NOT NULL
-);
-
-create table branch_contains_commit
-(
-    branch_id    BIGINT       REFERENCES  branch(id)   ON DELETE CASCADE NOT NULL,
-    commit_hash  VARCHAR(40)  REFERENCES  commit(hash) ON DELETE CASCADE NOT NULL,
-    UNIQUE(branch_id, commit_hash)
+    id                  BIGSERIAL    PRIMARY KEY,
+    hash                VARCHAR(40)  NOT NULL,
+    committer           VARCHAR(500) REFERENCES contributor(mail) NOT NULL,
+    author              VARCHAR(500) REFERENCES contributor(mail) NOT NULL,
+    branch_id           BIGINT       REFERENCES branch(id) ON DELETE CASCADE NOT NULL,
+    commit_date         TIMESTAMP    NOT NULL,
+    author_date         TIMESTAMP    NOT NULL,
+    message             TEXT         NOT NULL,
+    UNIQUE(hash, branch_id)
 );
