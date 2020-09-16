@@ -26,6 +26,7 @@ create table branch
     id              BIGSERIAL      PRIMARY KEY,
     repository_id   BIGINT         REFERENCES repository(id)    ON DELETE CASCADE   NOT NULL,
     name            VARCHAR(250)   NOT NULL,
+    short_name      VARCHAR(250)   NOT NULL,
     is_scanned      BOOLEAN        NOT NULL,
     UNIQUE(name, repository_id)
 );

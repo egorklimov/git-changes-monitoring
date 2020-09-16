@@ -3,7 +3,6 @@ package com.github.egorklimov.api.repository;
 
 import com.github.egorklimov.api.repository.model.GitRepositoryCloneRequest;
 import com.github.egorklimov.api.repository.model.GitRepositoryResponse;
-import com.github.egorklimov.service.RepositoryService;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.inject.Inject;

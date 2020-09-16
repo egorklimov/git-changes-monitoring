@@ -1,4 +1,4 @@
-package com.github.egorklimov.service;
+package com.github.egorklimov.api.repository;
 
 import com.github.egorklimov.data.repository.gitrepository.GitRepository;
 import com.github.egorklimov.data.repository.gitrepository.GitRepositoryRepository;

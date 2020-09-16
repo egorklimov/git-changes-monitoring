@@ -21,7 +21,7 @@ public class CloneRemoteRepository {
         Preconditions.checkArgument(url.endsWith(".git"), "URL must ends with .git");
         File target = Paths.get(dirPath, resolveName(url)).toFile();
 
-        Files.delete(target.toPath());
+        Files.deleteIfExists(target.toPath());
         target.mkdirs();
 
         log.info("Cloning from {} to {}", url, dirPath);

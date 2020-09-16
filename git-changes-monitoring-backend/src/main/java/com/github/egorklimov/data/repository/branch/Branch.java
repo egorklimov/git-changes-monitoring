@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,7 +20,11 @@ public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @Column(name = "short_name")
+    private String shortName;
 
     @Column(name = "repository_id")
     private long repositoryId;
@@ -31,5 +37,11 @@ public class Branch {
         this.name = name;
         this.repositoryId = repositoryId;
         this.isScanned = false;
+        this.shortName = resolveShortName(name);
+    }
+
+    private static String resolveShortName(String fullPath) {
+        List<String> parts = Arrays.asList(fullPath.split("/"));
+        return parts.get(parts.size() - 1);
     }
 }
