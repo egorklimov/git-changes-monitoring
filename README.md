@@ -6,6 +6,17 @@
 
  Service for visualizing git changes [v0.1.1]
  
+ ## Quick start
+ * Clone & run
+    ```sh
+    git clone https://github.com/egorklimov/git-changes-monitoring.git \
+    && cd git-changes-monitoring \
+    && docker-compose up
+    ```
+ * Backend: http://localhost:8080/swagger-ui
+ * Frontend: http://localhost:3000/ 
+ 
+ ## Example
  ![JetBrains Snakecharm stats by author](./docs/example.png?raw=true)
 
 ## License
