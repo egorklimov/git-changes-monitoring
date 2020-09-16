@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 @Tag("integration")
 @QuarkusTest
@@ -17,10 +16,9 @@ class ExampleResourceTest {
     @Test
     void testHelloEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/api/commit/repo/branch")
           .then()
-             .statusCode(200)
-             .body(is("hello"));
+             .statusCode(404);
     }
 
 }

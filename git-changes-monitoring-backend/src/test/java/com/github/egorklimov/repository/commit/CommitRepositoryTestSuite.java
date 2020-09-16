@@ -37,6 +37,7 @@ public class CommitRepositoryTestSuite implements CommonCRUDTestSuite<CommitDTO>
         Branch branch = new Branch();
         branch.setRepositoryId(gitRepository.getId());
         branch.setName("test_commit");
+        branch.setShortName(branch.getName());
         transaction.execute(() -> branchRepository.persistAndFlush(branch));
 
         Contributor contributor = new Contributor();

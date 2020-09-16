@@ -27,6 +27,7 @@ public class BranchRepositoryTestSuite implements CommonCRUDTestSuite<Branch> {
 
         Branch branch = new Branch();
         branch.setName("master");
+        branch.setShortName(branch.getName());
         branch.setRepositoryId(repository.find("name", "test_branch").firstResult().getId());
         return branch;
     }
