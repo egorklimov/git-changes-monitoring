@@ -1,0 +1,51 @@
+version: '2.2'
+
+services:
+  docker-host:
+    image: qoomon/docker-host:2.4.2
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    restart: on-failure
+  postgres_backend:
+    image: postgres:12.2
+    container_name: postgres_backend
+    ports:
+      - "5433:5432"
+    environment:
+      - DEBUG=false
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=git_changes
+    healthcheck:
+      test: ["CMD-SHELL", "psql -w -U postgres -d git_changes -c SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  frontend:
+    image: node
+    volumes:
+      - "./git-changes-monitoring-frontend:/app"
+    ports:
+      - 3000:3000 # Frontend HTTP server port
+    # Without "stdin_open: true", react-scripts exits immediately.
+    # See https://github.com/facebook/create-react-app/issues/8688
+    stdin_open: true
+    working_dir: /app
+    command: "sh -c \"npm install && npm start\""
+  backend:
+    image: maven
+    volumes:
+      - "./git-changes-monitoring-backend:/app"
+      # Mounting user's local .m2-directory,
+      # for custom settings.xml and for caching dependencies.
+      - "~/.m2:/root/.m2"
+    ports:
+      - 8080:8080 # Backend HTTP server port
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://docker-host:5433/git_changes
+      DATASOURCE_USERNAME: postgres
+      DATASOURCE_PASSWORD: postgres
+    depends_on:
+      postgres_backend:
+        condition: service_healthy
+    working_dir: /app
+    command: "mvn quarkus:dev"
