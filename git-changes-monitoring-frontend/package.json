@@ -2,7 +2,7 @@
   "name": "git-changes-monitoring-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://docker-host:8080/api",
+  "proxy": "http://localhost:8080/api",
   "dependencies": {
     "plotly.js": "^1.35.0",
     "react": "^16.13.1",
