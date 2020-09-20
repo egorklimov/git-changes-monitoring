@@ -17,6 +17,7 @@ create table repository
 
 create table repository_has_tag
 (
+    id            BIGSERIAL PRIMARY KEY,
     tag_id        BIGINT REFERENCES tag(id)         ON DELETE CASCADE NOT NULL,
     repository_id BIGINT REFERENCES repository(id)  ON DELETE CASCADE NOT NULL
 );
