@@ -10,7 +10,7 @@ jobs:
       - name: Publish frontend to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: egorklimov/git-changes-monitoring/git-changes-monitoring-backend
+          name: egorklimov/git-changes-monitoring/git-changes-monitoring-frontend
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com

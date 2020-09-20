@@ -86,6 +86,7 @@ export default function Home() {
     ];
 
     const loadOrganizations = () => {
+        setIsLoaded(false);
         fetch(
             "/tag", {
                 method: "GET",
@@ -128,7 +129,7 @@ export default function Home() {
             </div>
         );
     }
-    if (!isLoaded) {
+    if (!isLoaded || !organizations) {
         return <Loading/>;
     }
     return (
