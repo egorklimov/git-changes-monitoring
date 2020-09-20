@@ -8,25 +8,85 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import IconButton from "@material-ui/core/IconButton";
-import {Typography} from "@material-ui/core";
-import Container from "@material-ui/core/Container";
-import FormSubmitButton from "./FormSubmitButton";
+import Fab from "@material-ui/core/Fab";
+import CheckIcon from "@material-ui/icons/Check";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import green from "@material-ui/core/colors/green";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    wrapper: {
+        margin: theme.spacing(1),
+        position: 'relative',
+    },
+    fabProgress: {
+        color: green[500],
+        position: 'absolute',
+        top: -2,
+        left: -2,
+        zIndex: 1,
+    },
+    buttonProgress: {
+        color: green[500],
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: 3,
+        marginLeft: 3,
+    },
+}));
 
-export default function AddOrganizationDialog() {
+export default function AddOrganizationDialog({handleCloneError}) {
+    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+
     const [organization, setOrganization] = React.useState();
-    const [currentRepository, setCurrentRepository] = React.useState();
+    const [isCloning, setIsCloning] = React.useState(false);
 
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleSubmit = () => setOpen(false);
+    const handleSubmit = () => {
+        setIsCloning(true);
+        fetch(`https://api.github.com/orgs/${organization}/repos`)
+            .then((response) => {
+                if (!response.ok) {
+                    handleCloneError(response);
+                    return [];
+                }
+                return response.json();
+            })
+            .then((json) => {
+                return json.map((record) => ({url: record.html_url, description: record.description}));
+            })
+            .then(async (data) => {
+                await Promise.all(data.map((repository, idx) => {
+                    return fetch('/repository/clone', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                        },
+                        body: JSON.stringify({
+                            url: repository.url + ".git"
+                        })
+                    }).then((response) => {
+                        if (!response.ok) {
+                            handleCloneError(response);
+                        }
+                    })
+                }));
+                setIsCloning(false);
+                setOpen(false);
+            });
+    };
+
     const handleChange = (e) => {
         e.preventDefault();
         setOrganization(e.target.value);
     };
-
-    const handleLoad = (repository, description) => setCurrentRepository({url: repository, description: description});
 
     return (
         <div>
@@ -53,20 +113,31 @@ export default function AddOrganizationDialog() {
                         fullWidth
                         onChange={handleChange}
                     />
-
-                    {currentRepository && (
-                        <Container maxWidth="sm">
-                            <Typography>
-                                {currentRepository}
-                            </Typography>
-                        </Container>
-                    )}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <FormSubmitButton onClick={handleSubmit} org={organization} onLoad={handleLoad} />
+                    {isCloning  ?
+                        (
+                            <div className={classes.wrapper}>
+                                <Fab
+                                    aria-label="save"
+                                    color="primary"
+                                >
+                                    <CheckIcon />
+                                </Fab>
+                                <CircularProgress size={60} className={classes.fabProgress} />
+                            </div>
+                        ) :
+                        (
+                            <div>
+                                <Button onClick={handleClose} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={handleSubmit} color="primary">
+                                    Add
+                                </Button>
+                            </div>
+                        )
+                    }
                 </DialogActions>
             </Dialog>
         </div>

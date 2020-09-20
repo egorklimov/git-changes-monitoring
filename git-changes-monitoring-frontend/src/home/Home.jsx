@@ -13,6 +13,7 @@ import ApplicationBar from "../common/ApplicationBar";
 import Loading from "../common/Loading";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import Error from "../common/Error";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -64,7 +65,7 @@ export default function Home() {
 
     const actions = [
         {
-            icon: <AddOrganizationDialog />,
+            icon: <AddOrganizationDialog handleCloneError={handleCloneError}/>,
             name: 'Scan github organization',
         },
         {
@@ -119,14 +120,14 @@ export default function Home() {
         setOpen(true);
     };
 
-    // if (error) {
-    //     return (
-    //         <div>
-    //             <ApplicationBar/>
-    //             <Error error={error}/>
-    //         </div>
-    //     );
-    // }
+    if (error) {
+        return (
+            <div>
+                <ApplicationBar/>
+                <Error error={error}/>
+            </div>
+        );
+    }
     if (!isLoaded) {
         return <Loading/>;
     }
