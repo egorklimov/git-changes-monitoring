@@ -87,7 +87,7 @@ export default function Home() {
 
     const loadOrganizations = () => {
         fetch(
-            `/tag`, {
+            "/tag", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json;charset=utf-8",
