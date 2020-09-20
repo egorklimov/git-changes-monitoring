@@ -21,17 +21,13 @@ services:
       timeout: 5s
       retries: 5
   frontend:
-    image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-frontend:frontend-feature-home_page
+    image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-frontend:latest
     ports:
       - 3000:80 # Frontend HTTP server port
   backend:
-    image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-backend:frontend-feature-home_page
+    image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-backend:latest
     ports:
       - 8080:8080 # Backend HTTP server port
-    environment:
-      QUARKUS_DATASOURCE_URL: jdbc:postgresql://docker-host:5433/git_changes
-      QUARKUS_DATASOURCE_USERNAME: postgres
-      QUARKUS_DATASOURCE_PASSWORD: postgres
     depends_on:
       postgres_backend:
         condition: service_healthy
