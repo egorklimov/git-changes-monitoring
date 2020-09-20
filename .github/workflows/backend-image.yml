@@ -1,5 +1,7 @@
 name: Publish Backend Docker image
-on: ["push"]
+on:
+  release:
+    types: [published]
 jobs:
   build:
     runs-on: ubuntu-latest
