@@ -16,10 +16,7 @@ jobs:
           java-version: 11
       - name: Build with Maven
         working-directory: git-changes-monitoring-backend
-        run: mvn clean install
-      - name: Start Karate feature-based tests
-        working-directory: git-changes-monitoring-backend
-        run: mvn test -DargLine="-Dkarate.env=local" -Dtest=FeatureRunner
+        run: mvn clean package
       - name: Move JaCoCo report to workspace
         run: mv ./git-changes-monitoring-backend/target/site/jacoco-it/jacoco.xml $GITHUB_WORKSPACE/jacoco.xml
       - name: Run codacy-coverage-reporter
@@ -27,3 +24,11 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: jacoco.xml
+      - name: Publish backend to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: egorklimov/git-changes-monitoring/git-changes-monitoring-backend
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
+          dockerfile: ./src/main/docker/Dockerfile.jvm
