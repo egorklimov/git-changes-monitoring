@@ -18,27 +18,16 @@ export default function AddOrganizationDialog() {
     const [organization, setOrganization] = React.useState();
     const [currentRepository, setCurrentRepository] = React.useState();
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSubmit = () => {
-        setOpen(false);
-        console.log(organization);
-    }
-
+    const handleClickOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleSubmit = () => setOpen(false);
     const handleChange = (e) => {
         e.preventDefault();
         setOrganization(e.target.value);
-    }
+    };
 
-    const handleLoad = (repository, description) => {
-        setCurrentRepository({url: repository, description: description});
-    }
+    const handleLoad = (repository, description) => setCurrentRepository({url: repository, description: description});
+
     return (
         <div>
             <IconButton onClick={handleClickOpen}>
@@ -49,6 +38,7 @@ export default function AddOrganizationDialog() {
                 <DialogContent>
                     <DialogContentText>
                         To add all the organization's public repositories from Github, please, enter the organization name.
+                        <br/>
                         Name is case sensitive.
                         <br/>
                         It may take a while to get all the repositories, please do not cancel the download.
@@ -64,13 +54,13 @@ export default function AddOrganizationDialog() {
                         onChange={handleChange}
                     />
 
-                    {currentRepository &&
-                    <Container maxWidth="sm">
-                        <Typography>
-                            {currentRepository}
-                        </Typography>
-                    </Container>
-                    }
+                    {currentRepository && (
+                        <Container maxWidth="sm">
+                            <Typography>
+                                {currentRepository}
+                            </Typography>
+                        </Container>
+                    )}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

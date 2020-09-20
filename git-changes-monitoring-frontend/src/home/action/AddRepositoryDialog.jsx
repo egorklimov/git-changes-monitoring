@@ -5,39 +5,79 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
-import {Typography} from "@material-ui/core";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import FormSubmitButton from "./organization/FormSubmitButton";
 import LinkIcon from '@material-ui/icons/Link';
+import Fab from '@material-ui/core/Fab';
+import CheckIcon from '@material-ui/icons/Check';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import green from "@material-ui/core/colors/green";
 
-export default function AddRepositoryDialog() {
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    wrapper: {
+        margin: theme.spacing(1),
+        position: 'relative',
+    },
+    fabProgress: {
+        color: green[500],
+        position: 'absolute',
+        top: -2,
+        left: -2,
+        zIndex: 1,
+    },
+    buttonProgress: {
+        color: green[500],
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: 3,
+        marginLeft: 3,
+    },
+}));
+
+export default function AddRepositoryDialog(props) {
+    const classes = useStyles();
+    const { handleCloneError } = props;
     const [open, setOpen] = React.useState(false);
-    const [organization, setOrganization] = React.useState();
-    const [currentRepository, setCurrentRepository] = React.useState();
+    const [repository, setRepository] = React.useState();
+    const [isCloning, setIsCloning] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClickOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const handleSubmit = async () => {
+        setIsCloning(true);
+        const response = await fetch('/repository/clone', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            body: JSON.stringify({
+                url: repository
+            })
+        }).then((response) => {
+           if (!response.ok) {
+               handleCloneError(response);
+           }
+           return response;
+        });
+        await Promise.all([
+            response.json(),
+            setIsCloning(false),
+            setOpen(false),
+        ]);
     };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSubmit = () => {
-        setOpen(false);
-        console.log(organization);
-    }
 
     const handleChange = (e) => {
         e.preventDefault();
-        setOrganization(e.target.value);
+        setRepository(e.target.value);
     }
 
-    const handleLoad = (repository, description) => {
-        setCurrentRepository({url: repository, description: description});
-    }
     return (
         <div>
             <IconButton onClick={handleClickOpen}>
@@ -62,20 +102,31 @@ export default function AddRepositoryDialog() {
                         fullWidth
                         onChange={handleChange}
                     />
-
-                    {currentRepository &&
-                    <Container maxWidth="sm">
-                        <Typography>
-                            {currentRepository}
-                        </Typography>
-                    </Container>
-                    }
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <FormSubmitButton onClick={handleSubmit} org={organization} onLoad={handleLoad} />
+                    {isCloning ?
+                        (
+                            <div className={classes.wrapper}>
+                                <Fab
+                                    aria-label="save"
+                                    color="primary"
+                                >
+                                    <CheckIcon />
+                                </Fab>
+                                <CircularProgress size={60} className={classes.fabProgress} />
+                            </div>
+                    ) :
+                        (
+                            <div>
+                                <Button onClick={handleClose} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={handleSubmit} color="primary">
+                                    Clone
+                                </Button>
+                            </div>
+                        )
+                    }
                 </DialogActions>
             </Dialog>
         </div>

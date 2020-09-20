@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
-import {Container} from "@material-ui/core";
+import {Container, Typography} from "@material-ui/core";
 import Tree from "./Tree";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
@@ -11,6 +11,8 @@ import AddOrganizationDialog from "./action/organization/AddOrganizationDialog";
 import AddRepositoryDialog from "./action/AddRepositoryDialog";
 import ApplicationBar from "../common/ApplicationBar";
 import Loading from "../common/Loading";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -48,27 +50,6 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-const actions = [
-    {
-        icon: <AddOrganizationDialog />,
-        name: 'Scan github organization',
-    },
-    {
-        icon: <AddRepositoryDialog />,
-        name: 'Add github repository by link'
-    },
-    {
-        icon: (
-            <Link
-                href="https://github.com/egorklimov/git-changes-monitoring"
-                target="_blank"
-            >
-                <StarBorderIcon />
-            </Link>
-        ),
-        name: 'Star egorklimov/git-changes-monitoring on GitHub',
-    },
-];
 
 export default function Home() {
     const classes = useStyles();
@@ -76,6 +57,32 @@ export default function Home() {
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [organizations, setOrganizations] = React.useState();
     const [error, setError] = React.useState();
+
+    const handleCloneError = (error) => {
+        setError(`Failed to clone repository: received ${error.status} from backend.`)
+    };
+
+    const actions = [
+        {
+            icon: <AddOrganizationDialog />,
+            name: 'Scan github organization',
+        },
+        {
+            icon: <AddRepositoryDialog handleCloneError={handleCloneError}/>,
+            name: 'Add github repository by link'
+        },
+        {
+            icon: (
+                <Link
+                    href="https://github.com/egorklimov/git-changes-monitoring"
+                    target="_blank"
+                >
+                    <StarBorderIcon />
+                </Link>
+            ),
+            name: 'Star egorklimov/git-changes-monitoring on GitHub',
+        },
+    ];
 
     const loadOrganizations = () => {
         fetch(
@@ -155,6 +162,13 @@ export default function Home() {
                         ))}
                     </SpeedDial>
                 </div>
+                <Snackbar open={error} autoHideDuration={6000} onClose={() => setError(null)}>
+                    <Alert severity="error">
+                        <Typography>
+                            {error}
+                        </Typography>
+                    </Alert>
+                </Snackbar>
             </Container>
         </div>
     );
