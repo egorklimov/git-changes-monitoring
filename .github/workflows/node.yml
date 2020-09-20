@@ -14,7 +14,7 @@ jobs:
       - name: Install deps
         working-directory: git-changes-monitoring-frontend
         run: npm install
-      - name: Try start
+      - name: Try build
         working-directory: git-changes-monitoring-frontend
         run: npm run build
         env:
