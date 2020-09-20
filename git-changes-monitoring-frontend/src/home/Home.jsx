@@ -4,7 +4,7 @@ import {Container, Typography} from "@material-ui/core";
 import Tree from "./Tree";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Link from "@material-ui/core/Link";
 import AddOrganizationDialog from "./action/organization/AddOrganizationDialog";
@@ -18,8 +18,8 @@ import Error from "../common/Error";
 const useStyles = makeStyles((theme) =>
     createStyles({
         appBar: {
-            backgroundColor: '#172b4d',
-            alignItems: 'center',
+            backgroundColor: "#172b4d",
+            alignItems: "center",
         },
         typography: {
             color: "#e5ecf5",
@@ -30,20 +30,20 @@ const useStyles = makeStyles((theme) =>
             height: 20,
         },
         flex: {
-            display: 'flex',
+            display: "flex",
         },
         exampleWrapper: {
-            position: 'relative',
+            position: "relative",
             marginTop: theme.spacing(3),
             height: 380,
         },
         speedDial: {
-            position: 'absolute',
-            '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+            position: "absolute",
+            "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
                 bottom: theme.spacing(2),
                 right: theme.spacing(2),
             },
-            '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+            "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
                 top: theme.spacing(2),
                 left: theme.spacing(2),
             },
@@ -60,17 +60,17 @@ export default function Home() {
     const [error, setError] = React.useState();
 
     const handleCloneError = (error) => {
-        setError(`Failed to clone repository: received ${error.status} from backend.`)
+        setError(`Failed to clone repository: received ${error.status} from backend.`);
     };
 
     const actions = [
         {
             icon: <AddOrganizationDialog handleCloneError={handleCloneError}/>,
-            name: 'Scan github organization',
+            name: "Scan github organization",
         },
         {
             icon: <AddRepositoryDialog handleCloneError={handleCloneError}/>,
-            name: 'Add github repository by link'
+            name: "Add github repository by link"
         },
         {
             icon: (
@@ -81,7 +81,7 @@ export default function Home() {
                     <StarBorderIcon />
                 </Link>
             ),
-            name: 'Star egorklimov/git-changes-monitoring on GitHub',
+            name: "Star egorklimov/git-changes-monitoring on GitHub",
         },
     ];
 
@@ -136,10 +136,7 @@ export default function Home() {
             <ApplicationBar/>
             <Container maxWidth="md">
                 <Tree
-                    organizations={[
-                        {name: 'JetBrains-Research', repositories: [{name: 'snakecharm', branches: [{shortName: 'master'}]}]},
-                        {name: 'Research', repositories: [{name: 'notsnakecharm', branches: [{shortName: 'master'}]}]},
-                    ]}
+                    organizations={organizations}
                 />
 
                 <div className={classes.exampleWrapper}>

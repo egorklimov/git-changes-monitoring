@@ -52,7 +52,7 @@ export default function ChartEditor(props) {
                     message: [],
                     commitDateDetails: [],
                     authorDateDetails: [],
-                }
+                };
                 result.forEach((record) => {
                     data.hash.push(record.hash);
                     data.commitDate.push(Date.parse(record.commitDate, "yyyy-MM-dd HH:mm:ss"));
@@ -62,7 +62,7 @@ export default function ChartEditor(props) {
                     data.message.push(record.message);
                     data.commitDateDetails.push(record.commitDateDetails);
                     data.authorDateDetails.push(record.authorDateDetails);
-                })
+                });
                 setIsLoaded(true);
                 setDataSources(data);
             },

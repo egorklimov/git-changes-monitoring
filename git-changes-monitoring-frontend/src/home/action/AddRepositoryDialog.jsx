@@ -7,34 +7,34 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import LinkIcon from '@material-ui/icons/Link';
-import Fab from '@material-ui/core/Fab';
-import CheckIcon from '@material-ui/icons/Check';
+import LinkIcon from "@material-ui/icons/Link";
+import Fab from "@material-ui/core/Fab";
+import CheckIcon from "@material-ui/icons/Check";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import green from "@material-ui/core/colors/green";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        alignItems: 'center',
+        display: "flex",
+        alignItems: "center",
     },
     wrapper: {
         margin: theme.spacing(1),
-        position: 'relative',
+        position: "relative",
     },
     fabProgress: {
         color: green[500],
-        position: 'absolute',
+        position: "absolute",
         top: -2,
         left: -2,
         zIndex: 1,
     },
     buttonProgress: {
         color: green[500],
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
+        position: "absolute",
+        top: "50%",
+        left: "50%",
         marginTop: 3,
         marginLeft: 3,
     },
@@ -52,10 +52,10 @@ export default function AddRepositoryDialog(props) {
 
     const handleSubmit = async () => {
         setIsCloning(true);
-        const response = await fetch('/repository/clone', {
-            method: 'POST',
+        const response = await fetch("/repository/clone", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json;charset=utf-8',
+                "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify({
                 url: repository
@@ -76,7 +76,7 @@ export default function AddRepositoryDialog(props) {
     const handleChange = (e) => {
         e.preventDefault();
         setRepository(e.target.value);
-    }
+    };
 
     return (
         <div>

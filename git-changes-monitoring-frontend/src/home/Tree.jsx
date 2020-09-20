@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
-import {makeStyles} from '@material-ui/core/styles';
-import TreeView from '@material-ui/lab/TreeView';
-import TreeItem from '@material-ui/lab/TreeItem';
-import Typography from '@material-ui/core/Typography';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import AppsIcon from '@material-ui/icons/Apps';
-import GroupIcon from '@material-ui/icons/Group';
+import {makeStyles} from "@material-ui/core/styles";
+import TreeView from "@material-ui/lab/TreeView";
+import TreeItem from "@material-ui/lab/TreeItem";
+import Typography from "@material-ui/core/Typography";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import AccountTreeIcon from "@material-ui/icons/AccountTree";
+import AppsIcon from "@material-ui/icons/Apps";
+import GroupIcon from "@material-ui/icons/Group";
 
 const useTreeItemStyles = makeStyles((theme) => ({
   root: {
@@ -22,34 +22,34 @@ const useTreeItemStyles = makeStyles((theme) => ({
     borderBottomRightRadius: theme.spacing(2),
     paddingRight: theme.spacing(1),
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: '1rem !important',
-    '$expanded > &': {
+    fontSize: "1rem !important",
+    "$expanded > &": {
       fontWeight: theme.typography.fontWeightRegular,
     },
   },
   group: {
-    '& $content': {
+    "& $content": {
       paddingLeft: theme.spacing(2),
     },
   },
   expanded: {},
   selected: {},
   label: {
-    fontSize: 'inherit',
-    fontWeight: 'inherit',
-    color: 'inherit',
+    fontSize: "inherit",
+    fontWeight: "inherit",
+    color: "inherit",
   },
   labelRoot: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0.5, 0),
   },
   labelIcon: {
     marginRight: theme.spacing(1),
   },
   labelText: {
-    fontSize: 'inherit',
-    fontWeight: 'inherit',
+    fontSize: "inherit",
+    fontWeight: "inherit",
     flexGrow: 1,
   },
 }));
@@ -103,16 +103,15 @@ export default function Tree(props) {
   const {organizations} = props;
 
   const onBranchLabelClick = (repositoryName, branchName) => (clickEvent) => {
-    console.log("CLICK");
     clickEvent.preventDefault();
     history.push(`/${repositoryName}/${branchName}`);
-  }
+  };
 
   const classes = useStyles();
   return (
       <TreeView
           className={classes.root}
-          defaultExpanded={['3']}
+          defaultExpanded={["3"]}
           defaultCollapseIcon={<ArrowDropDownIcon />}
           defaultExpandIcon={<ArrowRightIcon />}
           defaultEndIcon={<div style={{ width: 24 }} />}

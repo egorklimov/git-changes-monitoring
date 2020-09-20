@@ -1,5 +1,5 @@
 import React from "react";
-import AppBar from '@material-ui/core/AppBar';
+import AppBar from "@material-ui/core/AppBar";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 import {LinearProgress, Toolbar} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -10,17 +10,17 @@ import HomeIcon from "@material-ui/icons/Home";
 const useStyles = makeStyles((theme) =>
     createStyles({
         appBar: {
-            alignItems: 'center',
-            backgroundColor: '#172b4d',
+            alignItems: "center",
+            backgroundColor: "#172b4d",
         },
         typography: {
             color: "#e5ecf5",
         },
         link: {
-            display: 'flex',
+            display: "flex",
         },
         flex: {
-            display: 'flex',
+            display: "flex",
         },
         icon: {
             marginRight: theme.spacing(0.5),
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) =>
             height: 20,
         },
         progress: {
-            bar: '#03b6fc',
+            bar: "#03b6fc",
         },
     }),
 );

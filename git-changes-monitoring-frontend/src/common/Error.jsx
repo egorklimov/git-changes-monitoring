@@ -8,18 +8,18 @@ const useStyles = makeStyles((theme) =>
     createStyles({
         container: {
             marginTop: "25vh",
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
         },
         svg: {
-            transform: 'scale(2.0)',
-            width: '100%',
-            height: '100%',
+            transform: "scale(2.0)",
+            width: "100%",
+            height: "100%",
         },
         errorText: {
-            textAlign: 'center',
-            marginTop: '70px',
+            textAlign: "center",
+            marginTop: "70px",
         },
     }),
 );
@@ -35,7 +35,7 @@ export default function Error(props) {
             >
                 <ErrorOutlineIcon
                     className={classes.svg}
-                    color='primary'
+                    color="primary"
                 />
                 <Typography variant="h6" className={classes.errorText}>
                     {error}

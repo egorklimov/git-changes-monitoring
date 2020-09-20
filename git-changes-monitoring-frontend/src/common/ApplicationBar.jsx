@@ -11,8 +11,8 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) =>
     createStyles({
         appBar: {
-            alignItems: 'center',
-            backgroundColor: '#172b4d',
+            alignItems: "center",
+            backgroundColor: "#172b4d",
         },
         typography: {
             color: "#e5ecf5",
@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme) =>
             height: 20,
         },
         flex: {
-            display: 'flex',
+            display: "flex",
         },
     }),
 );
 
 export default function ApplicationBar(props) {
     const classes = useStyles();
-    const { repository, branch } = props
+    const { repository, branch } = props;
 
     return (
         <AppBar className={classes.appBar} position="static">

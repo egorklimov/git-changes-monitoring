@@ -1,12 +1,12 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import React from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
@@ -16,25 +16,25 @@ import green from "@material-ui/core/colors/green";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        alignItems: 'center',
+        display: "flex",
+        alignItems: "center",
     },
     wrapper: {
         margin: theme.spacing(1),
-        position: 'relative',
+        position: "relative",
     },
     fabProgress: {
         color: green[500],
-        position: 'absolute',
+        position: "absolute",
         top: -2,
         left: -2,
         zIndex: 1,
     },
     buttonProgress: {
         color: green[500],
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
+        position: "absolute",
+        top: "50%",
+        left: "50%",
         marginTop: 3,
         marginLeft: 3,
     },
@@ -64,10 +64,10 @@ export default function AddOrganizationDialog({handleCloneError}) {
             })
             .then(async (data) => {
                 await Promise.all(data.map((repository, idx) => {
-                    return fetch('/repository/clone', {
-                        method: 'POST',
+                    return fetch("/repository/clone", {
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
+                            "Content-Type": "application/json;charset=utf-8",
                         },
                         body: JSON.stringify({
                             url: repository.url + ".git"
@@ -76,7 +76,7 @@ export default function AddOrganizationDialog({handleCloneError}) {
                         if (!response.ok) {
                             handleCloneError(response);
                         }
-                    })
+                    });
                 }));
                 setIsCloning(false);
                 setOpen(false);
@@ -97,7 +97,7 @@ export default function AddOrganizationDialog({handleCloneError}) {
                 <DialogTitle id="form-dialog-title">Github organization</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To add all the organization's public repositories from Github, please, enter the organization name.
+                        To add all the organization"s public repositories from Github, please, enter the organization name.
                         <br/>
                         Name is case sensitive.
                         <br/>
