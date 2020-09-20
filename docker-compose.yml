@@ -21,31 +21,17 @@ services:
       timeout: 5s
       retries: 5
   frontend:
-    image: node
-    volumes:
-      - "./git-changes-monitoring-frontend:/app"
+    image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-frontend:frontend-feature-home_page
     ports:
-      - 3000:3000 # Frontend HTTP server port
-    # Without "stdin_open: true", react-scripts exits immediately.
-    # See https://github.com/facebook/create-react-app/issues/8688
-    stdin_open: true
-    working_dir: /app
-    command: "sh -c \"npm install && npm start\""
+      - 3000:80 # Frontend HTTP server port
   backend:
-    image: maven
-    volumes:
-      - "./git-changes-monitoring-backend:/app"
-      # Mounting user's local .m2-directory,
-      # for custom settings.xml and for caching dependencies.
-      - "~/.m2:/root/.m2"
+    image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-backend:frontend-feature-home_page
     ports:
       - 8080:8080 # Backend HTTP server port
     environment:
-      DATASOURCE_URL: jdbc:postgresql://docker-host:5433/git_changes
-      DATASOURCE_USERNAME: postgres
-      DATASOURCE_PASSWORD: postgres
+      QUARKUS_DATASOURCE_URL: jdbc:postgresql://docker-host:5433/git_changes
+      QUARKUS_DATASOURCE_USERNAME: postgres
+      QUARKUS_DATASOURCE_PASSWORD: postgres
     depends_on:
       postgres_backend:
         condition: service_healthy
-    working_dir: /app
-    command: "mvn quarkus:dev"

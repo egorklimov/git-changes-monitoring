@@ -11,7 +11,7 @@ jobs:
           java-version: 11
       - name: Build with Maven
         working-directory: git-changes-monitoring-backend
-        run: mvn clean package -DskipTests
+        run: mvn clean install -DskipTests -Dquarkus-profile=image
       - name: Publish backend to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
@@ -21,3 +21,4 @@ jobs:
           registry: docker.pkg.github.com
           context: ./git-changes-monitoring-backend
           dockerfile: ./git-changes-monitoring-backend/src/main/docker/Dockerfile.jvm
+          tags: "latest"

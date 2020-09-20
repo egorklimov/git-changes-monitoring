@@ -16,3 +16,4 @@ jobs:
           registry: docker.pkg.github.com
           context: ./git-changes-monitoring-frontend
           dockerfile: ./git-changes-monitoring-frontend/Dockerfile
+          tags: "latest"
