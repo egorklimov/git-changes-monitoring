@@ -9,5 +9,6 @@ RUN npm install --silent
 COPY src/ ./src/
 COPY public/ ./public/
 
-RUN npm config set proxy http://docker-host:8080/api  # set manully
+# change proxy to docker network
+RUN sed -i "s|http://localhost:8080/api|http://docker-host:8080/api |g" package.json
 CMD ["npm", "start"]

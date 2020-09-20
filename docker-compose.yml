@@ -23,7 +23,7 @@ services:
   frontend:
     image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-frontend:latest
     ports:
-      - 3000:80 # Frontend HTTP server port
+      - 3000:3000 # Frontend HTTP server port
   backend:
     image: docker.pkg.github.com/egorklimov/git-changes-monitoring/git-changes-monitoring-backend:latest
     ports:
