@@ -8,12 +8,12 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push Frontend image to GitHub Packages
+        working-directory: git-changes-monitoring-frontend
         uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          context: ./git-changes-monitoring-frontend
-          file: ./Dockerfile
+          file: .//Dockerfile
           repository: egorklimov/git-changes-monitoring/git-changes-monitoring-frontend
           tag_with_ref: true

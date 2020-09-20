@@ -94,7 +94,7 @@ export default function Home() {
                 },
             }).then((response) => {
             if (!response.ok) {
-                throw {message: response.status};
+                throw new Error({message: response.status});
             }
             return response.json();
         }).then((result) => {
