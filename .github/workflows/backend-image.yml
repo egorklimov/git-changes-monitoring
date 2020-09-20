@@ -13,11 +13,11 @@ jobs:
         working-directory: git-changes-monitoring-backend
         run: mvn clean package -DskipTests
       - name: Publish backend to Registry
-        working-directory: git-changes-monitoring-backend
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: egorklimov/git-changes-monitoring/git-changes-monitoring-backend
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          dockerfile: ./src/main/docker/Dockerfile.jvm
+          context: ./git-changes-monitoring-backend
+          dockerfile: ./git-changes-monitoring-backend/src/main/docker/Dockerfile.jvm

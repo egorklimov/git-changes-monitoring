@@ -7,13 +7,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Push Frontend image to GitHub Packages
-        working-directory: git-changes-monitoring-frontend
-        uses: docker/build-push-action@v1
+      - name: Publish frontend to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
         with:
+          name: egorklimov/git-changes-monitoring/git-changes-monitoring-backend
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          file: .//Dockerfile
-          repository: egorklimov/git-changes-monitoring/git-changes-monitoring-frontend
-          tag_with_ref: true
+          context: ./git-changes-monitoring-frontend
+          dockerfile: ./git-changes-monitoring-frontend/Dockerfile
