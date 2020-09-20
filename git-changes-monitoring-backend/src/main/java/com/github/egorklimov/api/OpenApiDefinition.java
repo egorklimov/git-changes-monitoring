@@ -13,8 +13,8 @@ import javax.ws.rs.core.Application;
                 @Tag(name="tag", description="Operations related to organizations.")
         },
         info = @Info(
-                title="Git Changes Monitoring",
-                version = "0.1.1"
+                title="git-changes-monitoring",
+                version = "v0.2.0"
         )
 )
 public class OpenApiDefinition extends Application {
