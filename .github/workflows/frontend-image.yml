@@ -1,0 +1,21 @@
+name: Publish Frontend Docker image
+on:
+  release:
+    types: [published]
+jobs:
+  push_to_registry:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Publish frontend to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: egorklimov/git-changes-monitoring/git-changes-monitoring-frontend
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          context: ./git-changes-monitoring-frontend
+          dockerfile: ./git-changes-monitoring-frontend/Dockerfile
+          tags: "latest"
